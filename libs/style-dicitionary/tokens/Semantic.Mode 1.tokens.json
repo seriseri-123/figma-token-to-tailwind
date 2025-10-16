@@ -1,0 +1,28 @@
+{
+  "semantic": {
+    "background": {
+      "light": {
+        "$type": "color",
+        "$value": "{color.gray.300}"
+      },
+      "dark": {
+        "$type": "color",
+        "$value": "{color.gray.800}"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.purple.700}"
+      }
+    },
+    "text": {
+      "success": {
+        "$type": "color",
+        "$value": "{color.green.700}"
+      },
+      "l-main": {
+        "$type": "color",
+        "$value": "{color.gray.1000}"
+      }
+    }
+  }
+}

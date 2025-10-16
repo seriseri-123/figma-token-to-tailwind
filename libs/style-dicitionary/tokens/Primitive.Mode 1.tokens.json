@@ -1,0 +1,54 @@
+{
+  "color": {
+    "purple": {
+      "700": {
+        "$type": "color",
+        "$value": "#573e71"
+      }
+    },
+    "green": {
+      "700": {
+        "$type": "color",
+        "$value": "#3ca137"
+      }
+    },
+    "gray": {
+      "300": {
+        "$type": "color",
+        "$value": "#0000000d"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#00000080"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#000000b2"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#000000cc"
+      },
+      "1000": {
+        "$type": "color",
+        "$value": "#000000"
+      }
+    },
+    "red": {
+      "700": {
+        "$type": "color",
+        "$value": "#9f1430"
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": "#ffffff"
+    },
+    "gold": {
+      "700": {
+        "$type": "color",
+        "$value": "#6d4f3b"
+      }
+    }
+  }
+}

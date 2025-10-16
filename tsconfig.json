@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@figma-token-to-tailwind/libs/style-dictionary/*": [
+        "./libs/style-dicitionary/*"
+      ]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

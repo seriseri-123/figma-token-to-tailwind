@@ -1,0 +1,71 @@
+{
+  "color": {
+    "purple": {
+      "700": "#573e71"
+    },
+    "green": {
+      "700": "#3ca137"
+    },
+    "gray": {
+      "300": "#0000000d",
+      "500": "#00000080",
+      "700": "#000000b2",
+      "800": "#000000cc",
+      "1000": "#000000"
+    },
+    "red": {
+      "700": "#9f1430"
+    },
+    "white": "#ffffff",
+    "gold": {
+      "700": "#6d4f3b"
+    }
+  },
+  "semantic": {
+    "background": {
+      "light": "#0000000d",
+      "dark": "#000000cc",
+      "primary": "#573e71"
+    },
+    "text": {
+      "success": "#3ca137",
+      "l-main": "#000000"
+    }
+  },
+  "typography-body-pc": {
+    "fontFamily": "Noto Sans JP",
+    "fontSize": "16px",
+    "fontWeight": 400,
+    "letterSpacing": "-0.31px",
+    "lineHeight": "24px",
+    "textTransform": "none",
+    "textDecoration": "none"
+  },
+  "typography-button": {
+    "fontFamily": "Noto Sans JP",
+    "fontSize": "14px",
+    "fontWeight": 500,
+    "letterSpacing": "-0.15px",
+    "lineHeight": "20px",
+    "textTransform": "none",
+    "textDecoration": "none"
+  },
+  "typography-h1": {
+    "fontFamily": "Noto Sans JP",
+    "fontSize": "32px",
+    "fontWeight": 700,
+    "letterSpacing": "-0.31px",
+    "lineHeight": "24px",
+    "textTransform": "none",
+    "textDecoration": "none"
+  },
+  "typography-h2": {
+    "fontFamily": "Noto Sans JP",
+    "fontSize": "24px",
+    "fontWeight": 700,
+    "letterSpacing": "-0.31px",
+    "lineHeight": "24px",
+    "textTransform": "none",
+    "textDecoration": "none"
+  }
+}

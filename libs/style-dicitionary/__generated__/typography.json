@@ -1,0 +1,18 @@
+{
+  ".typography-body-pc": {
+    "font": "var(--typography-body-pc) /* 400 16px/24px 'Noto Sans JP' */",
+    "letter-spacing": "-0.31px"
+  },
+  ".typography-button": {
+    "font": "var(--typography-button) /* 500 14px/20px 'Noto Sans JP' */",
+    "letter-spacing": "-0.15px"
+  },
+  ".typography-h1": {
+    "font": "var(--typography-h1) /* 700 32px/24px 'Noto Sans JP' */",
+    "letter-spacing": "-0.31px"
+  },
+  ".typography-h2": {
+    "font": "var(--typography-h2) /* 700 24px/24px 'Noto Sans JP' */",
+    "letter-spacing": "-0.31px"
+  }
+}

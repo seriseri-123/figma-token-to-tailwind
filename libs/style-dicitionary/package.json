@@ -1,0 +1,20 @@
+{
+  "name": "@figma-token-to-tailwind/libs/style-dictionary",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx style-dictionary.config.ts",
+    "clean": "rm -rf dist __generated__"
+  },
+  "devDependencies": {
+    "style-dictionary": "5.0.4",
+    "tsx": "^4.19.4"
+  },
+  "exports": {
+    "./presets/*": "./presets/*.ts",
+    "./references.json": "./__generated__/references.json",
+    "./typography.json": "./__generated__/typography.json",
+    "./variables.css": "./__generated__/variables.css"
+  }
+}

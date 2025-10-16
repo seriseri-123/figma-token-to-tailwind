@@ -1,0 +1,21 @@
+:root {
+  --color-purple-700: #573e71;
+  --color-green-700: #3ca137;
+  --color-gray-300: rgba(0, 0, 0, 0.05);
+  --color-gray-500: rgba(0, 0, 0, 0.5);
+  --color-gray-700: rgba(0, 0, 0, 0.7);
+  --color-gray-800: rgba(0, 0, 0, 0.8);
+  --color-gray-1000: #000000;
+  --color-red-700: #9f1430;
+  --color-white: #ffffff;
+  --color-gold-700: #6d4f3b;
+  --typography-body-pc: 400 16px/24px 'Noto Sans JP';
+  --typography-button: 500 14px/20px 'Noto Sans JP';
+  --typography-h1: 700 32px/24px 'Noto Sans JP';
+  --typography-h2: 700 24px/24px 'Noto Sans JP';
+  --semantic-background-light: var(--color-gray-300);
+  --semantic-background-dark: var(--color-gray-800);
+  --semantic-background-primary: var(--color-purple-700);
+  --semantic-text-success: var(--color-green-700);
+  --semantic-text-l-main: var(--color-gray-1000);
+}

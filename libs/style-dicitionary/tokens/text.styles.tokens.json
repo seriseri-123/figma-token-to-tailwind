@@ -1,0 +1,50 @@
+{
+  "typography-body-pc": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "Noto Sans JP",
+      "fontSize": "16px",
+      "fontWeight": 400,
+      "letterSpacing": "-0.31px",
+      "lineHeight": "24px",
+      "textTransform": "none",
+      "textDecoration": "none"
+    }
+  },
+  "typography-button": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "Noto Sans JP",
+      "fontSize": "14px",
+      "fontWeight": 500,
+      "letterSpacing": "-0.15px",
+      "lineHeight": "20px",
+      "textTransform": "none",
+      "textDecoration": "none"
+    }
+  },
+  "typography-h1": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "Noto Sans JP",
+      "fontSize": "32px",
+      "fontWeight": 700,
+      "letterSpacing": "-0.31px",
+      "lineHeight": "24px",
+      "textTransform": "none",
+      "textDecoration": "none"
+    }
+  },
+  "typography-h2": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "Noto Sans JP",
+      "fontSize": "24px",
+      "fontWeight": 700,
+      "letterSpacing": "-0.31px",
+      "lineHeight": "24px",
+      "textTransform": "none",
+      "textDecoration": "none"
+    }
+  }
+}
