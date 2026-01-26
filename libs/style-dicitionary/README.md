@@ -2,12 +2,12 @@
 
 ## 概要
 
-Style Dictionaryを使用してFigmaのデザイントークンを変換し、Tailwind CSSで利用できるようにするパッケージです。これによりデザインシステムの一貫性を維持しながら効率的な開発が可能になります。
+Style Dictionary を使用して Figma のデザイントークン(JSON)を変換し、Next.js/Tailwind 側で使える形にするためのパッケージです。
 
 ## 主な機能
 
 - Figmaデザイントークンの一元管理
-- Tailwind CSSで使用可能な形式への変換
+- Tailwind CSS で使用可能な形式への変換（参照解決）
 - カスタムTailwindクラスの自動生成
 
 ## 使用方法
@@ -16,30 +16,25 @@ Style Dictionaryを使用してFigmaのデザイントークンを変換し、Ta
 
 Figmaからエクスポートしたトークンファイルを`tokens/`ディレクトリに配置します。
 
-```json
-// 例: tokens/token.json
-{
-  "color": {
-    "primary": { "value": "#0455c5" },
-    "secondary": { "value": "#8D74AC" },
-    "error": { "value": "#eb0000" }
-  }
-}
-```
+（このリポジトリでは例として `Primitive.Mode 1.tokens.json` / `Semantic.Mode 1.tokens.json` / `text.styles.tokens.json` が入っています）
 
 ### 2. トークンのビルド
 
 以下のコマンドでトークンをTailwind CSS互換の形式に変換します：
 
 ```bash
-yarn build
+npm run build
 ```
 
-これにより`__generated__/references.json`、`__generated__/variables.css`、`__generated__/typography.json`ファイルが生成されます。
+これにより `__generated__/` 配下に次のファイルが生成されます。
+
+- `__generated__/references.json`: Tailwind が読む JSON（参照解決済み）
+- `__generated__/variables.css`: CSS カスタムプロパティ（例: `--color-*`, `--semantic-*`, `--typography-*`）
+- `__generated__/typography.json`: `typography-*` ユーティリティ（例: `typography-h1` / `typography-body-pc`。Tailwind plugin で注入）
 
 ### 3. Tailwindでの利用
 
-`tailwind.config.ts`ファイルで生成されたファイルをimportして使用します：
+リポジトリルートの `tailwind.config.ts` で生成物を import して利用しています。
 
 ```typescript
 import references from "./libs/style-dicitionary/__generated__/references.json";
@@ -55,19 +50,23 @@ const config: Config = {
       ...color,
       ...SPECIAL_COLORS,
     },
-    textColor: () => ({
+    textColor: {
+      ...color,
       ...semantic.text,
+    },
+    backgroundColor: {
       ...color,
-    }),
-    backgroundColor: () => ({
       ...semantic.background,
-      ...color,
-    }),
+    },
   },
 };
 
 export default config;
 ```
+
+また、タイポグラフィユーティリティ（`typography-*`）は `typography.json` を Tailwind の plugin で注入しています。
+
+CSS 変数（`variables.css`）は `src/app/globals.css` から `@import` されており、**`typography-*` が参照する `--typography-*` を供給**します。
 
 ## トークン更新ワークフロー
 
@@ -79,17 +78,19 @@ export default config;
 ## ディレクトリ構造
 
 ```
-libs/style-dictionary/
+libs/style-dicitionary/
 ├── __generated__/       # 生成されたトークンファイル
 │   ├── references.json  # Tailwindで使用するJSON形式
 |   ├── typography.json
 │   └── variables.css    # CSSカスタムプロパティ
 ├── tokens/
 │   └── figmaから出力されたJSONファイル       # Figmaからのトークン定義
-├── style-dictionary.config.mjs  # Style Dictionary設定
+├── style-dictionary.config.ts   # Style Dictionary設定
 ├── package.json
 └── README.md
 ```
+
+※ このリポジトリではフォルダ名が `style-dicitionary` になっています（タイポですが、参照箇所も含めてこの名前で統一しています）。
 
 ## 参考リンク
 

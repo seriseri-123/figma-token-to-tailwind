@@ -1,89 +1,91 @@
 # Figma Token to Tailwind
 
-Figma のデザイントークンを Tailwind CSS クラスにマッピングするためのデモプロジェクトです。
+下記の記事 / スライド用に作った、**Figma のデザイントークン(JSON)を Tailwind CSS のクラスとして使う**ためのデモリポジトリです。
 
-## 概要
+- 記事: [「shadcn/ui × 自社デザインシステム」実践ガイド──FigmaトークンからTailwindまでの連携術](https://zenn.dev/peoplex_blog/articles/8df87dab4776d2)
+- スライド: [「shadcn/ui × 自社デザインシステム」実践ガイド──FigmaトークンからTailwindまでの連携術](https://speakerdeck.com/seriseri/ui-x-zi-she-dezainsisutemu-shi-jian-gaido-figmatokunkaratailwindmadenolian-xi-shu)
 
-このプロジェクトでは、以下のワークフローを実装しています:
+## このリポジトリでわかること
 
-1. **Figma トークンのエクスポート** - Design Tokens Manager プラグインで JSON に出力
-2. **Style Dictionary による変換** - 参照解決と Tailwind 用形式への変換
-3. **Tailwind Config への取り込み** - カスタムクラスの自動生成
-4. **shadcn/ui のカスタマイズ** - ブランドに合わせたコンポーネント実装
+- **Figma → JSON(Design Tokens Manager 等) → Style Dictionary → 生成物**の流れ
+- 生成したトークンを **`tailwind.config.ts` に取り込み**、`bg-*` / `text-*` などのクラスとして使う方法
+- タイポグラフィを **`typography-*` のユーティリティ**としてまとめて使う方法
 
-## 技術スタック
+## セットアップ / 動かし方
 
-- **Next.js** - React フレームワーク
-- **Tailwind CSS** - ユーティリティファースト CSS
-- **shadcn/ui** - Radix UI + Tailwind のコンポーネントライブラリ
-- **Style Dictionary** - デザイントークン変換ツール
-- **TypeScript** - 型安全な開発環境
-
-## プロジェクト構成
-
-```
-├── src/
-│   ├── components/ui/     # shadcn/ui カスタムコンポーネント
-│   └── app/              # Next.js App Router
-├── libs/
-│   └── style-dicitionary/ # デザイントークン管理(詳細はREADME参照)
-│       ├── tokens/       # Figmaからのトークンファイル
-│       ├── __generated__/ # Style Dictionary出力ファイル
-│       └── style-dictionary.config.ts
-└── tailwind.config.ts    # カスタムトークンを含むTailwind設定
-```
-
-## セットアップ
-
-### 1. 依存関係のインストール
+このリポジトリは「Next.js アプリ」と「Style Dictionary(トークン変換)」が別パッケージです。両方 install します。
 
 ```bash
+# 1) Next.js 側
+npm install
+
+# 2) Style Dictionary 側
+cd libs/style-dicitionary
 npm install
 ```
 
-### 2. デザイントークンのビルド
+トークン生成:
 
 ```bash
 cd libs/style-dicitionary
 npm run build
 ```
 
-### 3. 開発サーバーの起動
+アプリ起動:
 
 ```bash
+# リポジトリルートで
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000) でアプリケーションを確認できます。
+`http://localhost:3000` を開くと、トークンを使ったサンプル UI（`src/app/content.tsx`）が表示されます。
 
-## デザイントークン管理
+## どう繋がっているか（最短で理解する）
 
-デザイントークンの詳細な管理方法については、[libs/style-dicitionary/README.md](./libs/style-dicitionary/README.md) を参照してください。
+### 1) 入力: Figma から出した JSON
 
-### トークン更新ワークフロー
+- 配置先: `libs/style-dicitionary/tokens/**/*.json`
+
+### 2) 変換: Style Dictionary
+
+- 設定: `libs/style-dicitionary/style-dictionary.config.ts`
+- 出力先: `libs/style-dicitionary/__generated__/`
+  - `references.json`: Tailwind から読み込む用（参照解決済み）
+  - `variables.css`: CSS カスタムプロパティ
+  - `typography.json`: `typography-*` ユーティリティ（Tailwind plugin で注入）
+
+### 3) 利用: Tailwind / アプリ側
+
+- `tailwind.config.ts` が `references.json` と `typography.json` を読み込んで、クラスを生やしています
+  - 例: `bg-primary`, `bg-light`, `text-l-main`, `text-success` など
+  - 例: `typography-h1`, `typography-button`, `typography-body-pc` など
+- `src/app/globals.css` が `variables.css` を `@import` しており、**タイポユーティリティが参照する CSS 変数**（`--typography-*`）を供給しています
+
+## トークン更新フロー（記事の手順をこのリポジトリで再現）
 
 1. Figma 上でデザイントークンを更新
-2. Design Tokens Manager プラグインでエクスポート
-3. `libs/style-dicitionary/tokens/` に配置
-4. `cd libs/style-dicitionary && npm run build` を実行
-5. アプリケーションを再起動
+2. JSON をエクスポートして `libs/style-dicitionary/tokens/` を更新
+3. `cd libs/style-dicitionary && npm run build`
+4. `npm run dev` を起動中なら、表示をリロード（必要なら再起動）
 
-## 特徴
+## ディレクトリ構成
 
-### 🎨 デザインシステムとの連携
+```
+.
+├── src/
+│   ├── app/                 # Next.js(App Router)
+│   └── components/ui/       # shadcn/ui のコンポーネント（必要に応じてカスタム）
+├── libs/
+│   └── style-dicitionary/   # トークン変換（Style Dictionary）
+│       ├── tokens/          # Figma から出した JSON
+│       ├── __generated__/   # 生成物（Tailwind / CSS から参照）
+│       └── style-dictionary.config.ts
+└── tailwind.config.ts       # 生成トークンを Tailwind に取り込む設定
+```
 
-- Figma の変数をそのまま Tailwind クラスとして利用
-- 参照関係も含めて自動解決
-- タイポグラフィの一括スタイル適用
+## 参考
 
-### 🔧 柔軟なカスタマイズ
-
-- shadcn/ui の利点(アクセシビリティ・キーボード操作)を維持
-- ブランドに合わせたスタイルの自由な変更
-- 不要な variant の削除も可能
-
-## Learn More
-
-- [shadcn/ui Documentation](https://ui.shadcn.com/) - コンポーネントライブラリの詳細
-- [Style Dictionary](https://amzn.github.io/style-dictionary/) - デザイントークン変換ツール
-- [Tailwind CSS](https://tailwindcss.com/docs) - ユーティリティファースト CSS
+- `libs/style-dicitionary/README.md`（トークン変換側の詳細）
+- [shadcn/ui Documentation](https://ui.shadcn.com/)
+- [Style Dictionary](https://amzn.github.io/style-dictionary/)
+- [Tailwind CSS](https://tailwindcss.com/docs)
